@@ -1,0 +1,21 @@
+{
+    "name": "root/html",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lakazov David"
+        }
+    ],
+    "require": {
+        "elasticsearch/elasticsearch": "^8.9"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

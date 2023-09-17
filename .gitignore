@@ -1,0 +1,4 @@
+/vendor
+.docker/elasticsearch/backup/*
+.docker/elasticsearch/data/*
+.idea

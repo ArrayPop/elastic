@@ -1,0 +1,38 @@
+version: "3"
+services:
+  php-apache:
+    build:
+      context: ./.docker/php/images
+    volumes:
+      - ./.docker/php/php.ini:/usr/local/etc/php/php.ini
+      - .:/var/www/html
+    environment:
+      XDEBUG_CONFIG: "remote_host=host.docker.internal remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    networks:
+      - frontend
+    ports:
+      - "80:80"
+
+
+  elasticsearch:
+    image: elasticsearch:8.9.2
+    ports:
+      - "9200:9200"
+    environment:
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "discovery.type=single-node"
+      - "ELASTIC_PASSWORD=root"
+    volumes:
+      - ./.docker/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./.docker/elasticsearch/backup:/usr/share/elasticsearch/backup
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.220.0/28
